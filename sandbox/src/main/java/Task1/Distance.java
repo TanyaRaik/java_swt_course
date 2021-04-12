@@ -7,7 +7,7 @@ public class Distance {
 
     //double distance = distance(point1, point2);
 
-    double distance = point1.distance(point2);;
+    double distance = point1.distance(point2);
     System.out.println("Расстояние между точками =" + distance);
   }
 

@@ -2,11 +2,12 @@ package Task1;
 
 public class Distance {
   public static void main(String args[]) {
-    Point points = new Point(10, 20, 3, 50);
+    Point point1 = new Point(10, 20);
+    Point point2 = new Point( 3, 50);
 
     //double distance = distance(point1, point2);
 
-    double distance = points.getDistance();
+    double distance = point1.distance(point2);;
     System.out.println("Расстояние между точками =" + distance);
   }
 

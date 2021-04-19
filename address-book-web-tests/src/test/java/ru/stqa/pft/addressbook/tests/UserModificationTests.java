@@ -9,10 +9,13 @@ public class UserModificationTests extends TestBase {
   public void testUserModification() throws Exception {
     app.getNavigationHelper().goToHomePage();
     app.getUserHelper().selectUser();
-    app.getUserHelper().initUserModification(new UserData("name_upd", "middle name_upd", "last name_upd", "nickname", "title",
-            "raik.tatyana@gmail.com", "notes_upd", "January", "company", "address",
-            "1", "January", "1992", "2", "homepage", "fax",
-            "work", "mobile", "home"));
+    app.getUserHelper().initUserModification();
+    app.getUserHelper().fillUserForm(
+            new UserData("name", "middle name", "last name", "nickname", "title",
+                    "raik.tatyana@gmail.com", "notes", "January", "company", "address",
+                    "1", "January", "1992", "2", "homepage", "fax",
+                    "work", "mobile", "home"));
+    app.getUserHelper().submitUserModification();
     app.getNavigationHelper().goToHomePage();
   }
 }

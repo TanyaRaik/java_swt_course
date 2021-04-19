@@ -28,9 +28,11 @@ public class UserHelper extends HelperBase{
     click(By.xpath("//input[@value='Delete']"));
   }
 
-  public void initUserModification(UserData userData) {
+  public void initUserModification() {
     click(By.xpath("//td[@class='center']//img[@title='Edit']"));
-    fillUserForm(userData);
+  }
+
+  public void submitUserModification(){
     click(By.xpath("//input[@value='Update']"));
   }
 

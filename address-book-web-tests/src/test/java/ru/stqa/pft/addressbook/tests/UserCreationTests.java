@@ -14,5 +14,6 @@ public class UserCreationTests extends TestBase {
                     "1", "January", "1992", "2", "homepage", "fax",
                     "work", "mobile", "home"));
     app.getUserHelper().submitUserCreation();
+    app.getNavigationHelper().goToHomePage();
   }
 }

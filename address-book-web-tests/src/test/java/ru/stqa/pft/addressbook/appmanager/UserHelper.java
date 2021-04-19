@@ -11,6 +11,29 @@ public class UserHelper extends HelperBase{
     super(wd);
   }
 
+  public void submitUserCreation() {
+    wd.findElement(By.xpath("(//input[@name='submit'])[2]")).click();
+  }
+
+  public void initUserCreation() {
+    wd.findElement(By.linkText("add new")).click();
+  }
+
+  public void selectUser() {
+    click(By.name("selected[]"));
+  }
+
+  public void initUserRemoval() {
+    click(By.xpath("//td[@class='center']//img[@title='Edit']"));
+    click(By.xpath("//input[@value='Delete']"));
+  }
+
+  public void initUserModification(UserData userData) {
+    click(By.xpath("//td[@class='center']//img[@title='Edit']"));
+    fillUserForm(userData);
+    click(By.xpath("//input[@value='Update']"));
+  }
+
   public void fillUserForm(UserData userData) {
     type(By.name("firstname"), userData.getFirstName());
     type(By.name("middlename"), userData.getMiddleName());
@@ -32,22 +55,12 @@ public class UserHelper extends HelperBase{
     new Select(wd.findElement(By.name("bmonth"))).selectByVisibleText(userData.getBirthMonth());
     click(By.name("bmonth"));
     type(By.name("byear"), userData.getBirthYear());
-    click(By.name("theform"));
     click(By.name("aday"));
     new Select(wd.findElement(By.name("aday"))).selectByVisibleText(userData.getDay());
     click(By.name("aday"));
     click(By.name("amonth"));
     new Select(wd.findElement(By.name("amonth"))).selectByVisibleText(userData.getMonth());
     click(By.name("amonth"));
-    click(By.name("new_group"));
     type(By.name("notes"), userData.getNotes());
-  }
-
-  public void submitUserCreation() {
-    wd.findElement(By.xpath("(//input[@name='submit'])[2]")).click();
-  }
-
-  public void initUserCreation() {
-    wd.findElement(By.linkText("add new")).click();
   }
 }

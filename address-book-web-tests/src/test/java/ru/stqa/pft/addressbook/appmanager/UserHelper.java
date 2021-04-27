@@ -73,4 +73,14 @@ public class UserHelper extends HelperBase{
       Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
   }
+  public void createUser(UserData userData, boolean creation) {
+    initUserCreation();
+    fillUserForm(userData, creation);
+    submitUserCreation();
+  }
+
+  public boolean isThereAUser(){
+    return isElementPresent(By.name("selected[]"));
+  }
 }
+

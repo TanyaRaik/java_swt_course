@@ -20,8 +20,10 @@ public class UserData {
   private final String work;
   private final String mobile;
   private final String home;
+  private final String group;
 
-  public UserData(String firstName, String middleName, String lastName, String nickname, String title, String email, String notes, String month, String company, String address, String birthDay, String birthMonth, String birthYear, String day, String homepage, String fax, String work, String mobile, String home) {
+
+  public UserData(String firstName, String middleName, String lastName, String nickname, String title, String email, String notes, String month, String company, String address, String birthDay, String birthMonth, String birthYear, String day, String homepage, String fax, String work, String mobile, String home, String group) {
     this.firstName = firstName;
     this.middleName = middleName;
     this.lastName = lastName;
@@ -41,6 +43,7 @@ public class UserData {
     this.work = work;
     this.mobile = mobile;
     this.home = home;
+    this.group = group;
   }
 
   public String getFirstName() {
@@ -117,5 +120,9 @@ public class UserData {
 
   public String getHome() {
     return home;
+  }
+
+  public String getGroup() {
+    return group;
   }
 }

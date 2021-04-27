@@ -12,7 +12,7 @@ public class UserCreationTests extends TestBase {
             new UserData("name", "middle name", "last name", "nickname", "title",
                     "raik.tatyana@gmail.com", "notes", "January", "company", "address",
                     "1", "January", "1992", "2", "homepage", "fax",
-                    "work", "mobile", "home"));
+                    "work", "mobile", "home", "q"), true);
     app.getUserHelper().submitUserCreation();
     app.getNavigationHelper().goToHomePage();
   }

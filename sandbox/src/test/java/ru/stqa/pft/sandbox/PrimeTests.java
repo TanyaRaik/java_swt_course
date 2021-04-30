@@ -12,4 +12,9 @@ public class PrimeTests {
   public void testNonPrime(){
     Assert.assertFalse(Primes.isPrime(Integer.MAX_VALUE-2));
   }
+  @Test
+  public void testPrimeLong(){
+    long n = Integer.MAX_VALUE;
+    Assert.assertFalse(Primes.isPrime(n));
+  }
 }

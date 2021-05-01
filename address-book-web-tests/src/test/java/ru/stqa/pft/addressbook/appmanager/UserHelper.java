@@ -1,11 +1,14 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.UserData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserHelper extends HelperBase{
 
@@ -21,8 +24,8 @@ public class UserHelper extends HelperBase{
     wd.findElement(By.linkText("add new")).click();
   }
 
-  public void selectUser() {
-    click(By.name("selected[]"));
+  public void selectUser(int index) {
+    wd.findElements(By.name("selected[]")).get(index).click();
   }
 
   public void initUserRemoval() {
@@ -81,6 +84,28 @@ public class UserHelper extends HelperBase{
 
   public boolean isThereAUser(){
     return isElementPresent(By.name("selected[]"));
+  }
+
+  public int getUserCount() {
+    return wd.findElements(By.name("selected[]")).size();
+  }
+
+  public List<UserData> getUserList() {
+    List<UserData> listOfUsers = new ArrayList<UserData>();
+    List<WebElement> listOfRows = wd.findElements(By.cssSelector("tr"));
+    listOfRows.remove(0);
+    for (WebElement row : listOfRows) {
+      List<WebElement> cells = row.findElements(By.tagName("td"));
+      int id =Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("id"));
+      String lastname = cells.get(1).getText();
+      String firstname = cells.get(2).getText();
+      UserData user = new UserData(id, firstname, "middle name", lastname, "nickname", "title",
+              "raik.tatyana@gmail.com", "notes", "January", "company", "address",
+              "1", "January", "1992", "2", "homepage", "fax",
+              "work", "mobile", "home", "q");
+      listOfUsers.add(user);
+    }
+    return listOfUsers;
   }
 }
 

@@ -1,6 +1,9 @@
 package ru.stqa.pft.addressbook.model;
 
+import java.util.Objects;
+
 public class UserData {
+  private int id;
   private final String firstName;
   private final String middleName;
   private final String lastName;
@@ -22,8 +25,21 @@ public class UserData {
   private final String home;
   private final String group;
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    UserData userData = (UserData) o;
+    return Objects.equals(firstName, userData.firstName) && Objects.equals(lastName, userData.lastName);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(firstName, lastName);
+  }
 
   public UserData(String firstName, String middleName, String lastName, String nickname, String title, String email, String notes, String month, String company, String address, String birthDay, String birthMonth, String birthYear, String day, String homepage, String fax, String work, String mobile, String home, String group) {
+    this.id = Integer.MAX_VALUE;
     this.firstName = firstName;
     this.middleName = middleName;
     this.lastName = lastName;
@@ -44,6 +60,35 @@ public class UserData {
     this.mobile = mobile;
     this.home = home;
     this.group = group;
+  }
+
+  public UserData(int id, String firstName, String middleName, String lastName, String nickname, String title, String email, String notes, String month, String company, String address, String birthDay, String birthMonth, String birthYear, String day, String homepage, String fax, String work, String mobile, String home, String group) {
+    this.id = id;
+    this.firstName = firstName;
+    this.middleName = middleName;
+    this.lastName = lastName;
+    this.nickname = nickname;
+    this.title = title;
+    this.email = email;
+    this.notes = notes;
+    this.month = month;
+    this.company = company;
+    this.address = address;
+    this.birthDay = birthDay;
+    this.birthMonth = birthMonth;
+    this.birthYear = birthYear;
+    this.day = day;
+    this.homepage = homepage;
+    this.fax = fax;
+    this.work = work;
+    this.mobile = mobile;
+    this.home = home;
+    this.group = group;
+  }
+  public int getId() { return id; }
+
+  public void setId(int id) {
+    this.id = id;
   }
 
   public String getFirstName() {
@@ -125,4 +170,14 @@ public class UserData {
   public String getGroup() {
     return group;
   }
+
+  @Override
+  public String toString() {
+    return "UserData{" +
+            "id=" + id +
+            ", firstName='" + firstName + '\'' +
+            ", lastName='" + lastName + '\'' +
+            '}';
+  }
+
 }

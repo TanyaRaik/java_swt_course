@@ -5,7 +5,6 @@ import org.testng.annotations.*;
 import ru.stqa.pft.addressbook.model.UserData;
 
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 public class UserModificationTests extends TestBase {
@@ -21,8 +20,9 @@ public class UserModificationTests extends TestBase {
     }
     app.getNavigationHelper().goToHomePage();
     List<UserData> before = app.getUserHelper().getUserList();
+
     app.getUserHelper().selectUser(before.size()-1);
-    app.getUserHelper().initUserModification();
+    app.getUserHelper().initUserModification(before.get(before.size()-1).getId());
     UserData user = new UserData(before.get(before.size()-1).getId(), "name_upd", "middle name", "last name", "nickname", "title",
             "raik.tatyana@gmail.com", "notes", "January", "company", "address",
             "1", "January", "1992", "2", "homepage", "fax",
@@ -30,6 +30,7 @@ public class UserModificationTests extends TestBase {
 
     app.getUserHelper().fillUserForm(user, false);
     app.getUserHelper().submitUserModification();
+
     app.getNavigationHelper().goToHomePage();
     List<UserData> after = app.getUserHelper().getUserList();
     Assert.assertEquals(after.size(), before.size());

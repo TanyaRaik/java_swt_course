@@ -28,13 +28,13 @@ public class UserHelper extends HelperBase{
     wd.findElements(By.name("selected[]")).get(index).click();
   }
 
-  public void initUserRemoval() {
-    click(By.xpath("//td[@class='center']//img[@title='Edit']"));
+  public void initUserRemoval(int id) {
+    click(By.xpath("//td[@class='center']//a[@href='edit.php?id="+ id + "']"));
     click(By.xpath("//input[@value='Delete']"));
   }
 
-  public void initUserModification() {
-    click(By.xpath("//td[@class='center']//img[@title='Edit']"));
+  public void initUserModification(int id) {
+    click(By.xpath("//td[@class='center']//a[@href='edit.php?id="+ id + "']"));
   }
 
   public void submitUserModification(){

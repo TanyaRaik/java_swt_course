@@ -5,7 +5,6 @@ import org.testng.annotations.*;
 import ru.stqa.pft.addressbook.model.UserData;
 
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 public class UserDeleteTests extends TestBase {
@@ -23,7 +22,7 @@ public class UserDeleteTests extends TestBase {
     app.getNavigationHelper().goToHomePage();
     List<UserData> before = app.getUserHelper().getUserList();
     app.getUserHelper().selectUser(before.size()-1);
-    app.getUserHelper().initUserRemoval();
+    app.getUserHelper().initUserRemoval(before.get(before.size()-1).getId());
     app.getNavigationHelper().goToHomePage();
     List<UserData> after = app.getUserHelper().getUserList();
     Assert.assertEquals(after.size(), before.size()-1);

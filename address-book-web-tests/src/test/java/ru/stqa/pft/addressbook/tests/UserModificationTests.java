@@ -9,33 +9,33 @@ import java.util.List;
 
 public class UserModificationTests extends TestBase {
 
-  @Test
-  public void testUserModification() throws Exception {
-    app.getNavigationHelper().goToHomePage();
-    if (! app.getUserHelper().isThereAUser()) {
-      app.getUserHelper().createUser(new UserData("name", "middle name", "last name", "nickname", "title",
+  @BeforeMethod
+  public void ensurePreconditions(){
+    app.goTo().homePage();
+    if (app.user().list().size() == 0) {
+      app.user().create(new UserData("name", "middle name", "last name", "nickname", "title",
               "raik.tatyana@gmail.com", "notes", "January", "company", "address",
               "1", "January", "1992", "2", "homepage", "fax",
               "work", "mobile", "home", "q"), true);
     }
-    app.getNavigationHelper().goToHomePage();
-    List<UserData> before = app.getUserHelper().getUserList();
+    app.goTo().homePage();
+  }
 
-    app.getUserHelper().selectUser(before.size()-1);
-    app.getUserHelper().initUserModification(before.get(before.size()-1).getId());
-    UserData user = new UserData(before.get(before.size()-1).getId(), "name_upd", "middle name", "last name", "nickname", "title",
+  @Test
+  public void testUserModification() throws Exception {
+    List<UserData> before = app.user().list();
+    int index = before.size()-1;
+    UserData user = new UserData(before.get(index).getId(), "name_upd", "middle name", "last name", "nickname", "title",
             "raik.tatyana@gmail.com", "notes", "January", "company", "address",
             "1", "January", "1992", "2", "homepage", "fax",
             "work", "mobile", "home", null);
 
-    app.getUserHelper().fillUserForm(user, false);
-    app.getUserHelper().submitUserModification();
-
-    app.getNavigationHelper().goToHomePage();
-    List<UserData> after = app.getUserHelper().getUserList();
+    app.user().modify(before, index, user);
+    app.goTo().homePage();
+    List<UserData> after = app.user().list();
     Assert.assertEquals(after.size(), before.size());
 
-    before.remove(before.size()-1);
+    before.remove(index);
     before.add(user);
     Comparator<? super UserData> byId = (u1, u2) -> Integer.compare(u1.getId(), u2.getId());
     before.sort(byId);

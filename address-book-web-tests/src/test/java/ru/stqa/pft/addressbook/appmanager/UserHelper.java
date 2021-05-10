@@ -76,10 +76,22 @@ public class UserHelper extends HelperBase{
       Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
   }
-  public void createUser(UserData userData, boolean creation) {
+  public void create(UserData userData, boolean creation) {
     initUserCreation();
     fillUserForm(userData, creation);
     submitUserCreation();
+  }
+
+  public void modify(List<UserData> before, int index, UserData user) {
+    selectUser(index);
+    initUserModification(before.get(index).getId());
+    fillUserForm(user, false);
+    submitUserModification();
+  }
+
+  public void delete(List<UserData> before, int index) {
+    selectUser(index);
+    initUserRemoval(before.get(index).getId());
   }
 
   public boolean isThereAUser(){
@@ -90,7 +102,7 @@ public class UserHelper extends HelperBase{
     return wd.findElements(By.name("selected[]")).size();
   }
 
-  public List<UserData> getUserList() {
+  public List<UserData> list() {
     List<UserData> listOfUsers = new ArrayList<UserData>();
     List<WebElement> listOfRows = wd.findElements(By.cssSelector("tr"));
     listOfRows.remove(0);

@@ -3,9 +3,14 @@ package ru.stqa.pft.addressbook.tests;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import ru.stqa.pft.addressbook.model.UserData;
+import ru.stqa.pft.addressbook.model.Users;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class UserModificationTests extends TestBase {
 
@@ -13,34 +18,28 @@ public class UserModificationTests extends TestBase {
   public void ensurePreconditions(){
     app.goTo().homePage();
     if (app.user().list().size() == 0) {
-      app.user().create(new UserData("name", "middle name", "last name", "nickname", "title",
-              "raik.tatyana@gmail.com", "notes", "January", "company", "address",
-              "1", "January", "1992", "2", "homepage", "fax",
-              "work", "mobile", "home", "q"), true);
+      app.user().create(new UserData().withFirstName("name").withMiddleName("middle name")
+              .withLastName("lastname").withNickname("nickname").withTitle("title").withEmail("raik.tatyana@gmail.com")
+              .withNotes("notes").withCompany("company").withAddress("address").withWork("work")
+              .withMobile("mobile").withHome("home").withBirthDay("12").withGroup("q"), true);
     }
     app.goTo().homePage();
   }
 
   @Test
   public void testUserModification() throws Exception {
-    List<UserData> before = app.user().list();
-    int index = before.size()-1;
-    UserData user = new UserData(before.get(index).getId(), "name_upd", "middle name", "last name", "nickname", "title",
-            "raik.tatyana@gmail.com", "notes", "January", "company", "address",
-            "1", "January", "1992", "2", "homepage", "fax",
-            "work", "mobile", "home", null);
+    Users before = app.user().all();
+    UserData modifiedUser = before.iterator().next();
+    UserData user = new UserData().withId(modifiedUser.getId()).withFirstName("name_upd").withMiddleName("middle name")
+            .withLastName("lastname").withNickname("nickname").withTitle("title").withEmail("raik.tatyana@gmail.com")
+            .withNotes("notes").withCompany("company").withAddress("address").withWork("work")
+            .withMobile("mobile").withHome("home").withBirthDay("12").withGroup(null);
 
-    app.user().modify(before, index, user);
+    app.user().modify(user);
     app.goTo().homePage();
-    List<UserData> after = app.user().list();
-    Assert.assertEquals(after.size(), before.size());
+    Users after = app.user().all();
+    assertThat(after.size(), equalTo(before.size()));
 
-    before.remove(index);
-    before.add(user);
-    Comparator<? super UserData> byId = (u1, u2) -> Integer.compare(u1.getId(), u2.getId());
-    before.sort(byId);
-    after.sort(byId);
-
-    Assert.assertEquals(before, after);
+    assertThat(after, equalTo(before.without(modifiedUser).withAdded(user)));
   }
 }

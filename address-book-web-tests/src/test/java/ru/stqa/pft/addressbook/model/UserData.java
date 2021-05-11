@@ -3,93 +3,101 @@ package ru.stqa.pft.addressbook.model;
 import java.util.Objects;
 
 public class UserData {
-  private int id;
-  private final String firstName;
-  private final String middleName;
-  private final String lastName;
-  private final String nickname;
-  private final String title;
-  private final String email;
-  private final String notes;
-  private final String month;
-  private final String company;
-  private final String address;
-  private final String birthDay;
-  private final String birthMonth;
-  private final String birthYear;
-  private final String day;
-  private final String homepage;
-  private final String fax;
-  private final String work;
-  private final String mobile;
-  private final String home;
-  private final String group;
+  private int id = Integer.MAX_VALUE;
+  private String firstName;
+  private String middleName;
+  private String lastName;
+  private String nickname;
+  private String title;
+  private String email;
+  private String notes;
+  private String company;
+  private String address;
+  private String birthDay;
+  private String work;
+  private String mobile;
+  private String home;
+  private String group;
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    UserData userData = (UserData) o;
-    return Objects.equals(firstName, userData.firstName) && Objects.equals(lastName, userData.lastName);
+  public int getId() {
+    return id;
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(firstName, lastName);
-  }
-
-  public UserData(String firstName, String middleName, String lastName, String nickname, String title, String email, String notes, String month, String company, String address, String birthDay, String birthMonth, String birthYear, String day, String homepage, String fax, String work, String mobile, String home, String group) {
-    this.id = Integer.MAX_VALUE;
-    this.firstName = firstName;
-    this.middleName = middleName;
-    this.lastName = lastName;
-    this.nickname = nickname;
-    this.title = title;
-    this.email = email;
-    this.notes = notes;
-    this.month = month;
-    this.company = company;
-    this.address = address;
-    this.birthDay = birthDay;
-    this.birthMonth = birthMonth;
-    this.birthYear = birthYear;
-    this.day = day;
-    this.homepage = homepage;
-    this.fax = fax;
-    this.work = work;
-    this.mobile = mobile;
-    this.home = home;
-    this.group = group;
-  }
-
-  public UserData(int id, String firstName, String middleName, String lastName, String nickname, String title, String email, String notes, String month, String company, String address, String birthDay, String birthMonth, String birthYear, String day, String homepage, String fax, String work, String mobile, String home, String group) {
+  public UserData withId(int id) {
     this.id = id;
-    this.firstName = firstName;
-    this.middleName = middleName;
-    this.lastName = lastName;
-    this.nickname = nickname;
-    this.title = title;
-    this.email = email;
-    this.notes = notes;
-    this.month = month;
-    this.company = company;
-    this.address = address;
-    this.birthDay = birthDay;
-    this.birthMonth = birthMonth;
-    this.birthYear = birthYear;
-    this.day = day;
-    this.homepage = homepage;
-    this.fax = fax;
-    this.work = work;
-    this.mobile = mobile;
-    this.home = home;
-    this.group = group;
+    return this;
   }
-  public int getId() { return id; }
 
-  public void setId(int id) {
-    this.id = id;
+  public UserData withFirstName(String firstName) {
+    this.firstName = firstName;
+    return this;
   }
+
+  public UserData withMiddleName(String middleName) {
+    this.middleName = middleName;
+    return this;
+  }
+
+  public UserData withLastName(String lastName) {
+    this.lastName = lastName;
+    return this;
+  }
+
+  public UserData withNickname(String nickname) {
+    this.nickname = nickname;
+    return this;
+  }
+
+  public UserData withTitle(String title) {
+    this.title = title;
+    return this;
+  }
+
+  public UserData withEmail(String email) {
+    this.email = email;
+    return this;
+  }
+
+  public UserData withNotes(String notes) {
+    this.notes = notes;
+    return this;
+  }
+
+  public UserData withCompany(String company) {
+    this.company = company;
+    return this;
+  }
+
+  public UserData withAddress(String address) {
+    this.address = address;
+    return this;
+  }
+
+  public UserData withBirthDay(String birthDay) {
+    this.birthDay = birthDay;
+    return this;
+  }
+
+  public UserData withWork(String work) {
+    this.work = work;
+    return this;
+  }
+
+  public UserData withMobile(String mobile) {
+    this.mobile = mobile;
+    return this;
+  }
+
+  public UserData withHome(String home) {
+    this.home = home;
+    return this;
+  }
+
+  public UserData withGroup(String group) {
+    this.group = group;
+    return this;
+  }
+
 
   public String getFirstName() {
     return firstName;
@@ -119,10 +127,6 @@ public class UserData {
     return notes;
   }
 
-  public String getMonth() {
-    return month;
-  }
-
   public String getCompany() {
     return company;
   }
@@ -133,26 +137,6 @@ public class UserData {
 
   public String getBirthDay() {
     return birthDay;
-  }
-
-  public String getBirthMonth() {
-    return birthMonth;
-  }
-
-  public String getBirthYear() {
-    return birthYear;
-  }
-
-  public String getDay() {
-    return day;
-  }
-
-  public String getHomepage() {
-    return homepage;
-  }
-
-  public String getFax() {
-    return fax;
   }
 
   public String getWork() {
@@ -180,4 +164,16 @@ public class UserData {
             '}';
   }
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    UserData userData = (UserData) o;
+    return id == userData.id && Objects.equals(firstName, userData.firstName) && Objects.equals(lastName, userData.lastName);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, firstName, lastName);
+  }
 }

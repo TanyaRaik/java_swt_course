@@ -6,9 +6,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.UserData;
+import ru.stqa.pft.addressbook.model.Users;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class UserHelper extends HelperBase{
 
@@ -26,6 +29,10 @@ public class UserHelper extends HelperBase{
 
   public void selectUser(int index) {
     wd.findElements(By.name("selected[]")).get(index).click();
+  }
+
+  public void selectUserById(int id) {
+    wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
   }
 
   public void initUserRemoval(int id) {
@@ -47,28 +54,15 @@ public class UserHelper extends HelperBase{
     type(By.name("lastname"), userData.getLastName());
     type(By.name("nickname"), userData.getNickname());
     type(By.name("title"), userData.getTitle());
+    type(By.name("email"), userData.getEmail());
+    type(By.name("notes"), userData.getNotes());
     type(By.name("company"), userData.getCompany());
     type(By.name("address"), userData.getAddress());
     type(By.name("home"), userData.getHome());
     type(By.name("mobile"), userData.getMobile());
     type(By.name("work"), userData.getWork());
-    type(By.name("fax"), userData.getFax());
-    type(By.name("email"), userData.getEmail());
-    type(By.name("homepage"), userData.getHomepage());
-    click(By.name("bday"));
     new Select(wd.findElement(By.name("bday"))).selectByVisibleText(userData.getBirthDay());
     click(By.name("bday"));
-    click(By.name("bmonth"));
-    new Select(wd.findElement(By.name("bmonth"))).selectByVisibleText(userData.getBirthMonth());
-    click(By.name("bmonth"));
-    type(By.name("byear"), userData.getBirthYear());
-    click(By.name("aday"));
-    new Select(wd.findElement(By.name("aday"))).selectByVisibleText(userData.getDay());
-    click(By.name("aday"));
-    click(By.name("amonth"));
-    new Select(wd.findElement(By.name("amonth"))).selectByVisibleText(userData.getMonth());
-    click(By.name("amonth"));
-    type(By.name("notes"), userData.getNotes());
 
     if (creation) {
       new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(userData.getGroup());
@@ -82,16 +76,27 @@ public class UserHelper extends HelperBase{
     submitUserCreation();
   }
 
-  public void modify(List<UserData> before, int index, UserData user) {
-    selectUser(index);
-    initUserModification(before.get(index).getId());
+//  public void modify(List<UserData> before, int index, UserData user) {
+//    selectUser(index);
+//    initUserModification(before.get(index).getId());
+//    fillUserForm(user, false);
+//    submitUserModification();
+//  }
+
+  public void modify(UserData user) {
+    selectUserById(user.getId());
+    initUserModification(user.getId());
     fillUserForm(user, false);
     submitUserModification();
   }
-
   public void delete(List<UserData> before, int index) {
     selectUser(index);
     initUserRemoval(before.get(index).getId());
+  }
+
+  public void delete(UserData user) {
+    selectUserById(user.getId());
+    initUserRemoval(user.getId());
   }
 
   public boolean isThereAUser(){
@@ -111,11 +116,28 @@ public class UserHelper extends HelperBase{
       int id =Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("id"));
       String lastname = cells.get(1).getText();
       String firstname = cells.get(2).getText();
-      UserData user = new UserData(id, firstname, "middle name", lastname, "nickname", "title",
-              "raik.tatyana@gmail.com", "notes", "January", "company", "address",
-              "1", "January", "1992", "2", "homepage", "fax",
-              "work", "mobile", "home", "q");
+      UserData user = new UserData().withId(id).withFirstName(firstname).withMiddleName("middle name")
+              .withLastName(lastname).withNickname("nickname").withTitle("title").withEmail("raik.tatyana@gmail.com")
+              .withNotes("notes").withCompany("company").withAddress("address").withWork("work")
+              .withMobile("mobile").withHome("home").withBirthDay("12").withGroup("q");
       listOfUsers.add(user);
+    }
+    return listOfUsers;
+  }
+
+  public Users all() {
+    Users listOfUsers = new Users();
+    List<WebElement> listOfrow = wd.findElements(By.cssSelector("tr"));
+    listOfrow.remove(0);
+    for (WebElement row : listOfrow) {
+      List<WebElement> cells = row.findElements(By.tagName("td"));
+      int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("id"));
+      String lastname = cells.get(1).getText();
+      String firstname = cells.get(2).getText();
+      listOfUsers.add(new UserData().withId(id).withFirstName(firstname).withMiddleName("middle name")
+              .withLastName(lastname).withNickname("nickname").withTitle("title").withEmail("raik.tatyana@gmail.com")
+              .withNotes("notes").withCompany("company").withAddress("address").withWork("work")
+              .withMobile("mobile").withHome("home").withBirthDay("12").withGroup("q"));
     }
     return listOfUsers;
   }

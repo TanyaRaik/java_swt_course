@@ -37,9 +37,8 @@ public class UserModificationTests extends TestBase {
 
     app.user().modify(user);
     app.goTo().homePage();
+    assertThat(app.user().count(), equalTo(before.size()));
     Users after = app.user().all();
-    assertThat(after.size(), equalTo(before.size()));
-
     assertThat(after, equalTo(before.without(modifiedUser).withAdded(user)));
   }
 }

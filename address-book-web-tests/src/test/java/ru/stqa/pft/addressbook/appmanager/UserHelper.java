@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import ru.stqa.pft.addressbook.model.Groups;
 import ru.stqa.pft.addressbook.model.UserData;
 import ru.stqa.pft.addressbook.model.Users;
 
@@ -74,6 +75,7 @@ public class UserHelper extends HelperBase{
     initUserCreation();
     fillUserForm(userData, creation);
     submitUserCreation();
+    userCashe = null;
   }
 
 //  public void modify(List<UserData> before, int index, UserData user) {
@@ -88,6 +90,7 @@ public class UserHelper extends HelperBase{
     initUserModification(user.getId());
     fillUserForm(user, false);
     submitUserModification();
+    userCashe = null;
   }
   public void delete(List<UserData> before, int index) {
     selectUser(index);
@@ -97,6 +100,7 @@ public class UserHelper extends HelperBase{
   public void delete(UserData user) {
     selectUserById(user.getId());
     initUserRemoval(user.getId());
+    userCashe = null;
   }
 
   public boolean isThereAUser(){
@@ -125,8 +129,13 @@ public class UserHelper extends HelperBase{
     return listOfUsers;
   }
 
+  public Users userCashe = null;
+
   public Users all() {
-    Users listOfUsers = new Users();
+    if (userCashe != null){
+    return  new Users(userCashe);
+  }
+    userCashe = new Users();
     List<WebElement> listOfrow = wd.findElements(By.cssSelector("tr"));
     listOfrow.remove(0);
     for (WebElement row : listOfrow) {
@@ -134,12 +143,12 @@ public class UserHelper extends HelperBase{
       int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("id"));
       String lastname = cells.get(1).getText();
       String firstname = cells.get(2).getText();
-      listOfUsers.add(new UserData().withId(id).withFirstName(firstname).withMiddleName("middle name")
+      userCashe.add(new UserData().withId(id).withFirstName(firstname).withMiddleName("middle name")
               .withLastName(lastname).withNickname("nickname").withTitle("title").withEmail("raik.tatyana@gmail.com")
               .withNotes("notes").withCompany("company").withAddress("address").withWork("work")
               .withMobile("mobile").withHome("home").withBirthDay("12").withGroup("q"));
     }
-    return listOfUsers;
+    return new Users(userCashe);
   }
 }
 

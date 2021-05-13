@@ -143,10 +143,11 @@ public class UserHelper extends HelperBase{
       int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("id"));
       String lastname = cells.get(1).getText();
       String firstname = cells.get(2).getText();
-      userCashe.add(new UserData().withId(id).withFirstName(firstname).withMiddleName("middle name")
-              .withLastName(lastname).withNickname("nickname").withTitle("title").withEmail("raik.tatyana@gmail.com")
-              .withNotes("notes").withCompany("company").withAddress("address").withWork("work")
-              .withMobile("mobile").withHome("home").withBirthDay("12").withGroup("q"));
+      String allPhones = cells.get(5).getText();
+      String allEmails = cells.get(4).getText();
+      String address = cells.get(3).getText();
+      userCashe.add(new UserData().withId(id).withFirstName(firstname).withLastName(lastname)
+              .withAllPhones(allPhones).withAllEmails(allEmails).withAddress(address));
     }
     return new Users(userCashe);
   }

@@ -66,6 +66,7 @@ public class UserHelper extends HelperBase{
     type(By.name("work"), userData.getWork());
     new Select(wd.findElement(By.name("bday"))).selectByVisibleText(userData.getBirthDay());
     click(By.name("bday"));
+    attach(By.name("photo"), userData.getPhoto());
 
     if (creation) {
       new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(userData.getGroup());

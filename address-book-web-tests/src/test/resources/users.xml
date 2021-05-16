@@ -1,0 +1,66 @@
+<list>
+  <ru.stqa.pft.addressbook.model.UserData>
+    <id>2147483647</id>
+    <firstName>FirstName 0</firstName>
+    <middleName>MiddleName 0</middleName>
+    <lastName>LastName 0</lastName>
+    <nickname>Nickname 0</nickname>
+    <title>Title 0</title>
+    <email>Email 0</email>
+    <notes>Notes 0</notes>
+    <company>Company 0</company>
+    <address>Address 0</address>
+    <birthDay>2</birthDay>
+    <work>WorkPhone 0</work>
+    <mobile>MobilePhone 0</mobile>
+    <home>HomePhone 0</home>
+  </ru.stqa.pft.addressbook.model.UserData>
+  <ru.stqa.pft.addressbook.model.UserData>
+    <id>2147483647</id>
+    <firstName>FirstName 1</firstName>
+    <middleName>MiddleName 1</middleName>
+    <lastName>LastName 1</lastName>
+    <nickname>Nickname 1</nickname>
+    <title>Title 1</title>
+    <email>Email 1</email>
+    <notes>Notes 1</notes>
+    <company>Company 1</company>
+    <address>Address 1</address>
+    <birthDay>23</birthDay>
+    <work>WorkPhone 1</work>
+    <mobile>MobilePhone 1</mobile>
+    <home>HomePhone 1</home>
+  </ru.stqa.pft.addressbook.model.UserData>
+  <ru.stqa.pft.addressbook.model.UserData>
+    <id>2147483647</id>
+    <firstName>FirstName 2</firstName>
+    <middleName>MiddleName 2</middleName>
+    <lastName>LastName 2</lastName>
+    <nickname>Nickname 2</nickname>
+    <title>Title 2</title>
+    <email>Email 2</email>
+    <notes>Notes 2</notes>
+    <company>Company 2</company>
+    <address>Address 2</address>
+    <birthDay>8</birthDay>
+    <work>WorkPhone 2</work>
+    <mobile>MobilePhone 2</mobile>
+    <home>HomePhone 2</home>
+  </ru.stqa.pft.addressbook.model.UserData>
+  <ru.stqa.pft.addressbook.model.UserData>
+    <id>2147483647</id>
+    <firstName>FirstName 3</firstName>
+    <middleName>MiddleName 3</middleName>
+    <lastName>LastName 3</lastName>
+    <nickname>Nickname 3</nickname>
+    <title>Title 3</title>
+    <email>Email 3</email>
+    <notes>Notes 3</notes>
+    <company>Company 3</company>
+    <address>Address 3</address>
+    <birthDay>11</birthDay>
+    <work>WorkPhone 3</work>
+    <mobile>MobilePhone 3</mobile>
+    <home>HomePhone 3</home>
+  </ru.stqa.pft.addressbook.model.UserData>
+</list>

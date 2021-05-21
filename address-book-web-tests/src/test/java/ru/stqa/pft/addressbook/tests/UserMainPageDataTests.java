@@ -13,8 +13,8 @@ import static org.hamcrest.MatcherAssert.*;
 public class UserMainPageDataTests extends TestBase{
   @BeforeMethod
   public void ensurePreconditions(){
-    app.goTo().homePage();
-    if (app.user().list().size() == 0) {
+    if (app.db().users().size() == 0) {
+      app.goTo().homePage();
       app.user().create(new UserData().withFirstName("name").withMiddleName("middle name")
               .withLastName("lastname").withNickname("nickname").withTitle("title").withEmail("raik.tatyana@gmail.com")
               .withNotes("notes").withCompany("company").withAddress("address").withWork("work")

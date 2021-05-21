@@ -2,60 +2,93 @@ package ru.stqa.pft.addressbook.model;
 
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 import java.util.Objects;
 
+@Entity
+@Table(name="addressbook")
 public class UserData {
+  @Id
+  @Column(name = "id")
   @XStreamOmitField
   private int id = Integer.MAX_VALUE;
   @Expose
+  @Column(name = "firstname")
   private String firstName;
   @Expose
+  @Column(name = "middlename")
   private String middleName;
   @Expose
+  @Column(name = "lastname")
   private String lastName;
   @Expose
+  @Column(name = "nickname")
   private String nickname;
-  @Expose
+  @Expose@Column(name = "title")
   private String title;
   @Expose
+  @Column(name = "email")
+  @Type(type="text")
   private String email;
   @XStreamOmitField
+  @Column(name = "email2")
+  @Type(type="text")
   private String email2;
   @XStreamOmitField
+  @Column(name = "email3")
+  @Type(type="text")
   private String email3;
   @Expose
+  @Column(name = "notes")
+  @Type(type="text")
   private String notes;
   @Expose
+  @Column(name = "company")
   private String company;
   @Expose
+  @Column(name = "address")
+  @Type(type="text")
   private String address;
   @Expose
+  @Transient
   private String birthDay;
   @Expose
+  @Column(name = "work")
+  @Type(type="text")
   private String work;
   @Expose
+  @Column(name = "mobile")
+  @Type(type="text")
   private String mobile;
   @Expose
+  @Column(name = "home")
+  @Type(type="text")
   private String home;
   @XStreamOmitField
+  @Transient
   private String group;
   @XStreamOmitField
+  @Transient
   private String allPhones;
   @XStreamOmitField
+  @Transient
   private String allEmails;
 
+  @Column(name = "photo")
+  @Type(type="text")
+  private String photo;
+
   public File getPhoto() {
-    return photo;
+    return new File(photo);
   }
 
   public UserData withPhoto(File photo) {
-    this.photo = photo;
+    this.photo = photo.getPath();
     return this;
   }
-
-  private File photo;
 
   public int getId() {
     return id;

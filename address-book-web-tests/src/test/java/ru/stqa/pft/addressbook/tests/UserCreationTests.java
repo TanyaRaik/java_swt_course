@@ -35,8 +35,8 @@ public class UserCreationTests extends TestBase {
 
   @Test (dataProvider = "validUsersFromJson")
   public void testUserCreation(UserData user) throws Exception {
+    Users before = app.db().users();
     app.goTo().homePage();
-    Users before = app.user().all();
     File file = new File("src/test/resources/stru.png");
     user.withPhoto(file);
     user.withGroup("q");
@@ -44,7 +44,7 @@ public class UserCreationTests extends TestBase {
     app.goTo().homePage();
 
     assertThat(app.user().count(), equalTo(before.size()+1));
-    Users after = app.user().all();
+    Users after = app.db().users();
     assertThat(after, equalTo(
             before.withAdded(user.withId(after.stream().mapToInt((u) -> u.getId()).max().getAsInt()))));
   }

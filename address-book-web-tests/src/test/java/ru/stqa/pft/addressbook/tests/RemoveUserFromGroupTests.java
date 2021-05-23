@@ -21,7 +21,7 @@ public class RemoveUserFromGroupTests extends TestBase {
               .withMobile("mobile").withHome("home").withBirthDay("12"), true);
     if (app.db().groups().size() == 0) {
       app.goTo().groupPage();
-      app.group().create(new GroupData().withName("test_new"));
+      app.group().create(new GroupData().withName("q"));
       }
     }
     app.goTo().homePage();

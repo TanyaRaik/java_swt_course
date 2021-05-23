@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 import ru.stqa.pft.addressbook.model.UserData;
 import ru.stqa.pft.addressbook.model.Users;
@@ -34,6 +35,27 @@ public class UserHelper extends HelperBase{
 
   public void selectUserById(int id) {
     wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
+  }
+
+
+
+  public void addUserToGroup(UserData user, String groupId) {
+    selectUserById(user.getId());
+    select(By.name("to_group"), groupId);
+    addToGroup();
+  }
+
+  public void deleteUserFromGroup(UserData user) {
+    selectUserById(user.getId());
+    removeUserFromGroup();
+  }
+
+  public void addToGroup() {
+    click(By.name("add"));
+  }
+
+  public void removeUserFromGroup() {
+    click(By.name("remove"));
   }
 
   public void initUserRemoval(int id) {
@@ -68,11 +90,11 @@ public class UserHelper extends HelperBase{
 //    click(By.name("bday"));
     attach(By.name("photo"), userData.getPhoto());
 
-    if (creation) {
-      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(userData.getGroup());
-    } else{
-      Assert.assertFalse(isElementPresent(By.name("new_group")));
-    }
+//    if (creation) {
+//      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(userData.getGroup());
+//    } else{
+//      Assert.assertFalse(isElementPresent(By.name("new_group")));
+//    }
   }
   public void create(UserData userData, boolean creation) {
     initUserCreation();
@@ -126,7 +148,7 @@ public class UserHelper extends HelperBase{
       UserData user = new UserData().withId(id).withFirstName(firstname).withMiddleName("middle name")
               .withLastName(lastname).withNickname("nickname").withTitle("title").withEmail("raik.tatyana@gmail.com")
               .withNotes("notes").withCompany("company").withAddress("address").withWork("work")
-              .withMobile("mobile").withHome("home").withBirthDay("12").withGroup("q");
+              .withMobile("mobile").withHome("home").withBirthDay("12");
       listOfUsers.add(user);
     }
     return listOfUsers;
@@ -170,6 +192,11 @@ public class UserHelper extends HelperBase{
     return new UserData().withId(user.getId()).withFirstName(firstname).withLastName(lastname)
             .withHome(home).withMobile(mobile).withWork(work).
                     withEmail(email).withEmail2(email2).withEmail3(email3).withAddress(address);
+  }
+
+  public String getGroupId() {
+    String group_id = wd.findElement(By.name("to_group")).getAttribute("value");
+    return group_id;
   }
 }
 

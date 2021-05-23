@@ -18,7 +18,7 @@ public class UserMainPageDataTests extends TestBase{
       app.user().create(new UserData().withFirstName("name").withMiddleName("middle name")
               .withLastName("lastname").withNickname("nickname").withTitle("title").withEmail("raik.tatyana@gmail.com")
               .withNotes("notes").withCompany("company").withAddress("address").withWork("work")
-              .withMobile("mobile").withHome("home").withBirthDay("12").withGroup("q"), true);
+              .withMobile("mobile").withHome("home").withBirthDay("12"), true);
     }
     app.goTo().homePage();
   }

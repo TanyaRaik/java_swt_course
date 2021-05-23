@@ -6,7 +6,9 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name="addressbook")
@@ -67,9 +69,9 @@ public class UserData {
   @Column(name = "home")
   @Type(type="text")
   private String home;
-  @XStreamOmitField
-  @Transient
-  private String group;
+//  @XStreamOmitField
+//  @Transient
+//  private String group;
   @XStreamOmitField
   @Transient
   private String allPhones;
@@ -80,6 +82,10 @@ public class UserData {
   @Column(name = "photo")
   @Type(type="text")
   private String photo;
+
+  @ManyToMany(fetch = FetchType.EAGER)
+  @JoinTable(name="address_in_groups", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name="group_id"))
+  private Set<GroupData> groups = new HashSet<GroupData>();
 
   public File getPhoto() {
     return new File(photo);
@@ -174,11 +180,6 @@ public class UserData {
     return this;
   }
 
-  public UserData withGroup(String group) {
-    this.group = group;
-    return this;
-  }
-
   public UserData withAllPhones(String allPhones) {
     this.allPhones = allPhones;
     return this;
@@ -189,6 +190,9 @@ public class UserData {
     return this;
   }
 
+  public Groups getGroups(){
+    return new Groups(groups);
+  }
 
   public String getFirstName() {
     return firstName;
@@ -246,10 +250,6 @@ public class UserData {
 
   public String getHome() {
     return home;
-  }
-
-  public String getGroup() {
-    return group;
   }
 
   public String getAllPhones() {

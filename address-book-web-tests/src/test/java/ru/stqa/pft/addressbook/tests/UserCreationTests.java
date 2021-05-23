@@ -39,7 +39,7 @@ public class UserCreationTests extends TestBase {
     app.goTo().homePage();
     File file = new File("src/test/resources/stru.png");
     user.withPhoto(file);
-    user.withGroup("q");
+//    user.withGroup("q");
     app.user().create(user, true);
     app.goTo().homePage();
 
@@ -47,6 +47,7 @@ public class UserCreationTests extends TestBase {
     Users after = app.db().users();
     assertThat(after, equalTo(
             before.withAdded(user.withId(after.stream().mapToInt((u) -> u.getId()).max().getAsInt()))));
+    verifyUserListInUi();
   }
 
   @Test

@@ -25,4 +25,8 @@ public class NavigationHelper extends HelperBase {
     }
     click(By.linkText("home"));
   }
+
+  public void selectedGroupPage(String group_id){
+    click(By.xpath("//a[@href='./?group="+ group_id + "']"));
+  }
 }

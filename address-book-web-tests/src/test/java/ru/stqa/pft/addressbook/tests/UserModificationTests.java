@@ -23,7 +23,7 @@ public class UserModificationTests extends TestBase {
       app.user().create(new UserData().withFirstName("name").withMiddleName("middle name")
               .withLastName("lastname").withNickname("nickname").withTitle("title").withEmail("raik.tatyana@gmail.com")
               .withNotes("notes").withCompany("company").withAddress("address").withWork("work")
-              .withMobile("mobile").withHome("home").withBirthDay("12").withGroup("q").withPhoto(photo), true);
+              .withMobile("mobile").withHome("home").withBirthDay("12").withPhoto(photo), true);
     }
     app.goTo().homePage();
   }
@@ -37,12 +37,13 @@ public class UserModificationTests extends TestBase {
     UserData user = new UserData().withId(modifiedUser.getId()).withFirstName("name_upd").withMiddleName("middle name")
             .withLastName("lastname").withNickname("nickname").withTitle("title").withEmail("raik.tatyana@gmail.com")
             .withNotes("notes").withCompany("company").withAddress("address").withWork("work")
-            .withMobile("mobile").withHome("home").withBirthDay("12").withGroup(null).withPhoto(photo);
+            .withMobile("mobile").withHome("home").withBirthDay("12").withPhoto(photo);
 
     app.user().modify(user);
     app.goTo().homePage();
     assertThat(app.user().count(), equalTo(before.size()));
     Users after = app.db().users();
     assertThat(after, equalTo(before.without(modifiedUser).withAdded(user)));
+    verifyUserListInUi();
   }
 }

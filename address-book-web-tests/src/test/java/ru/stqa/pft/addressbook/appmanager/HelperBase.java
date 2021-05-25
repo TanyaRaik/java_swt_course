@@ -38,7 +38,7 @@ public class HelperBase {
 
   protected void select(By locator, String text) {
     click(locator);
-    new Select(wd.findElement(locator)).selectByValue(text);
+    new Select(wd.findElement(locator)).selectByVisibleText(text);
     click(locator);
   }
 

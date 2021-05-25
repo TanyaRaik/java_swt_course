@@ -39,23 +39,19 @@ public class UserHelper extends HelperBase{
 
 
 
-  public void addUserToGroup(UserData user, String groupId) {
+  public void addUserToGroup(UserData user, GroupData group) {
     selectUserById(user.getId());
-    select(By.name("to_group"), groupId);
+    select(By.name("to_group"), group.getName());
     addToGroup();
   }
 
   public void deleteUserFromGroup(UserData user) {
     selectUserById(user.getId());
-    removeUserFromGroup();
+    click(By.name("remove"));
   }
 
   public void addToGroup() {
     click(By.name("add"));
-  }
-
-  public void removeUserFromGroup() {
-    click(By.name("remove"));
   }
 
   public void initUserRemoval(int id) {
@@ -194,9 +190,8 @@ public class UserHelper extends HelperBase{
                     withEmail(email).withEmail2(email2).withEmail3(email3).withAddress(address);
   }
 
-  public String getGroupId() {
-    String group_id = wd.findElement(By.name("to_group")).getAttribute("value");
-    return group_id;
+  public void filterByGroup(GroupData groupsList) {
+    select(By.name("group"), groupsList.getName());
   }
 }
 

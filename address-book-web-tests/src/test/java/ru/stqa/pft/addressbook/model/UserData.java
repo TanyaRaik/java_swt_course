@@ -194,6 +194,17 @@ public class UserData {
     return new Groups(groups);
   }
 
+  public UserData ActionsWithGroup(GroupData group, Boolean toAdd) {
+    if(toAdd == true) {
+      groups.add(group);
+      return this;
+    }
+    else {
+      groups.remove(group);
+      return this;
+    }
+  }
+
   public String getFirstName() {
     return firstName;
   }
@@ -282,3 +293,4 @@ public class UserData {
     return Objects.hash(id, firstName, lastName);
   }
 }
+

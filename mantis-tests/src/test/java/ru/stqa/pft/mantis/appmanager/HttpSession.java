@@ -9,7 +9,6 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.client.LaxRedirectStrategy;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,11 +32,11 @@ public class HttpSession {
     params.add(new BasicNameValuePair("return","index.php"));
     post.setEntity(new UrlEncodedFormEntity(params));
     CloseableHttpResponse response=httpclient.execute(post);
-    String body=geTextForm(response);
-    return body.contains(String.format("<a href=\"/mantisbt-2.25.1/account_page.php\">%s</a>",username));
+    String body= getTextForm(response);
+    return body.contains(String.format("<a href=\"/mantisbt-2.25.1/account_page.php\">%s",username));
   }
 
-  private String geTextForm(CloseableHttpResponse response) throws  IOException{
+  private String getTextForm(CloseableHttpResponse response) throws  IOException{
     try{
       return EntityUtils.toString(response.getEntity());
     } finally {
@@ -48,7 +47,7 @@ public class HttpSession {
   public boolean isLoggerInAs (String username) throws  IOException{
     HttpGet get=new HttpGet(app.getProperty("web.baseUrl")+"/index.php");
     CloseableHttpResponse response=httpclient.execute(get);
-    String body=geTextForm(response);
+    String body= getTextForm(response);
     return body.contains(String.format("<span class=\"label hidden-xs label-default arrowed\">%s</span>",username));
   }
 }

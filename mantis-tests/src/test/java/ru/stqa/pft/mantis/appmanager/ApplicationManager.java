@@ -1,6 +1,5 @@
 package ru.stqa.pft.mantis.appmanager;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -21,16 +20,18 @@ public class ApplicationManager {
   private RegistrationHelper registrationHelper;
   private FtpHelper ftp;
   private MailHelper mailHelper;
+  private AdminHelper adminHelper;
+  private  DbHelper dbHelper;
 
   public ApplicationManager(String browser){
     this.browser = browser;
-
     properties = new Properties();
   }
 
   public void init() throws IOException{
     String target = System.getProperty("target","local");
     properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
+    dbHelper = new DbHelper();
   }
 
   public void stop() {
@@ -81,5 +82,20 @@ public class ApplicationManager {
       mailHelper = new MailHelper(this);
     }
     return mailHelper;
+  }
+
+  public AdminHelper adminActions() {
+    if (adminHelper == null) {
+      adminHelper = new AdminHelper(this);
+    }
+    return adminHelper;
+  }
+
+  public DbHelper db() {
+    return dbHelper;
+  }
+
+  public HttpSession sessionNew() {
+    return new HttpSession(this);
   }
 }
